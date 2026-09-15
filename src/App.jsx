@@ -1,4 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
+import TaskForm from "./components/TaskForm/TaskForm";
+import TaskList from "./components/TaskList/TaskList";
+import { createTask, getTasks } from "./services/taskService";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -6,48 +9,44 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchTasks = async () => {
+    const loadTasks = async () => {
       try {
-        const response = await fetch('http://localhost:5035/api/tasks');
-
-        if (!response.ok) {
-          throw new Error('Could not fetch tasks');
-        }
-
-        const data = await response.json();
+        const data = await getTasks();
         setTasks(data);
       } catch (error) {
-        console.error('Error fetching tasks:', error);
-        setError('Could not load tasks. Please try again later.');
-      } finally { 
+        console.error(error);
+        setError("Could not load tasks. Please try again later.");
+      } finally {
         setLoading(false);
       }
-    }
+    };
 
-    fetchTasks()
-  }, [])
+    loadTasks();
+  }, []);
+
+  const handleTaskCreated = async (task) => {
+    try {
+      const createdTask = await createTask(task);
+
+      setTasks((currentTasks) => [...currentTasks, createdTask]);
+      setError(null);
+    } catch (error) {
+      console.error(error);
+      setError("Could not create task. Please try again.");
+    }
+  };
 
   return (
     <main>
       <h1>Task Planner</h1>
 
-      {loading && <p>Loading tasks...</p>}
+      <TaskForm onTaskCreated={handleTaskCreated} />
+
       {error && <p>{error}</p>}
 
-      {!loading && !error && tasks.length === 0 && (
-        <p>No tasks available.</p>
-      )}
-
-      
-      {!loading && !error && tasks.map(task => (
-        <div key={task.id}>
-          <h2>{task.title}</h2>
-          <p>{task.description}</p>
-          <p>Status: {task.status}</p>
-        </div>
-      ))}
+      {loading ? <p>Loading tasks...</p> : <TaskList tasks={tasks} />}
     </main>
-  )
+  );
 }
 
 export default App;
