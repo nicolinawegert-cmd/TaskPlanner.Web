@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import './App.css'
 import TaskForm from "./components/TaskForm/TaskForm";
 import TaskList from "./components/TaskList/TaskList";
 import { createTask, getTasks, updateTask, uploadTaskFile } from "./services/taskService";
@@ -76,7 +77,7 @@ function App() {
   
 
   return (
-    <main>
+    <main className="app">
       <h1>Task Planner</h1>
 
       <TaskForm onTaskCreated={handleTaskCreated} />
