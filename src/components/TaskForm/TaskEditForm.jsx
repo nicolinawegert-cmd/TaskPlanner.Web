@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './TaskEditForm.css';
 
 function TaskEditForm({ task, onSave, onCancel }) {
   const [title, setTitle] = useState(task.title);
@@ -23,7 +24,7 @@ function TaskEditForm({ task, onSave, onCancel }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="task-edit-form" onSubmit={handleSubmit}>
       <h3>Edit Task</h3>
       <label htmlFor={`title-${task.id}`}>Title</label>
       <input
@@ -59,11 +60,12 @@ function TaskEditForm({ task, onSave, onCancel }) {
         value={dueDate}
         onChange={(event) => setDueDate(event.target.value)}
       />
-
+      <div className="form-buttons">
       <button type="submit">Save</button>
       <button type="button" onClick={onCancel}>
         Cancel
       </button>
+      </div>
     </form>
   )
 }
