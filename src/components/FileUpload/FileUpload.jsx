@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './FileUpload.css';
 
 function FileUpload({ taskId, onFileUpload }) {
   const [file, setFile] = useState(null);
@@ -18,10 +19,13 @@ function FileUpload({ taskId, onFileUpload }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor={`file-${taskId}`}>Attach file</label>
+    <form className="file-upload" onSubmit={handleSubmit}>
+      <label htmlFor={`file-${taskId}`}>
+        Attach file
+      </label>
 
       <input
+        className="file-input"
         id={`file-${taskId}`}
         type="file"
         onChange={(event) => setFile(event.target.files[0])}
