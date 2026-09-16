@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './TaskForm.css';
 
 function TaskForm({ onTaskCreated }) {
   const [title, setTitle] = useState("");
@@ -25,7 +26,7 @@ function TaskForm({ onTaskCreated }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="task-form" onSubmit={handleSubmit}>
       <h2>Add task</h2>
 
       <label htmlFor="title">Title</label>
