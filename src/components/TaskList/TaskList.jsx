@@ -1,6 +1,6 @@
 import TaskItem from '../TaskItem/TaskItem';
 
-function TaskList({ tasks, onTaskUpdated }) {
+function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
   if (tasks.length === 0) {
     return <p>No tasks found.</p>;
   }
@@ -12,6 +12,7 @@ function TaskList({ tasks, onTaskUpdated }) {
           key={task.id}
           task={task}
           onTaskUpdated={onTaskUpdated}
+          onFileUpload={onFileUpload}
         />
       ))}
     </section>

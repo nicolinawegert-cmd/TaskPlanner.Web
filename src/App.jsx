@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import TaskForm from "./components/TaskForm/TaskForm";
 import TaskList from "./components/TaskList/TaskList";
-import { createTask, getTasks, updateTask } from "./services/taskService";
+import { createTask, getTasks, updateTask, uploadTaskFile } from "./services/taskService";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -55,6 +55,26 @@ function App() {
     }
   }
 
+  const handleFileUpload = async (id, file) => {
+    try {
+      const updatedTask = await uploadTaskFile(id, file)
+
+      setTasks(currentTasks =>
+        currentTasks.map(task =>
+          task.id === id ? updatedTask : task
+        )
+      )
+
+      setError(null);
+      return true;
+    } catch (error) {
+      console.error(error);
+      setError("Could not upload file. Please try again.");
+      return false;
+    }
+  }
+  
+
   return (
     <main>
       <h1>Task Planner</h1>
@@ -64,7 +84,11 @@ function App() {
       {error && <p>{error}</p>}
 
       {loading ? <p>Loading tasks...</p> :
-        <TaskList tasks={tasks} onTaskUpdated={handleTaskUpdated} />}
+        <TaskList
+          tasks={tasks}
+          onTaskUpdated={handleTaskUpdated}
+          onFileUpload={handleFileUpload}
+        />}
     </main>
   );
 }

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import TaskEditForm from '../TaskForm/TaskEditForm';
+import FileUpload from '../FileUpload/FileUpload';
 
-function TaskItem({ task, onTaskUpdated }) {
+function TaskItem({ task, onTaskUpdated, onFileUpload }) {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleSave = async (updatedTask) => {
@@ -35,6 +36,10 @@ function TaskItem({ task, onTaskUpdated }) {
           {new Date(task.dueDate).toLocaleDateString()}
         </p>
       )}
+      <FileUpload
+        taskId={task.id}
+        onFileUpload={onFileUpload}
+      />
 
       <button type="button" onClick={() => setIsEditing(true)}>
         Edit

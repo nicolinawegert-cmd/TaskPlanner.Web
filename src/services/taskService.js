@@ -41,3 +41,19 @@ export async function updateTask(id, task) {
 
   return await response.json()
 }
+
+export async function uploadTaskFile(id, file) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await fetch(`${API_URL}/${id}/upload`, {
+    method: 'POST',
+    body: formData
+  });
+
+  if (!response.ok) {
+    throw new Error('Could not upload task file');
+  }
+
+  return await response.json();
+}
