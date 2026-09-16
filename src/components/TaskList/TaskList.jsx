@@ -1,4 +1,5 @@
-import TaskItem from '../TaskItem/TaskItem';
+import TaskItem from "../TaskItem/TaskItem";
+import './TaskList.css';
 
 function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
   if (tasks.length === 0) {
@@ -6,7 +7,7 @@ function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
   }
 
   return (
-    <section>
+    <section className="task-list">
       {tasks.map((task) => (
         <TaskItem
           key={task.id}
@@ -16,7 +17,7 @@ function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
         />
       ))}
     </section>
-  )
+  );
 }
 
 export default TaskList;
