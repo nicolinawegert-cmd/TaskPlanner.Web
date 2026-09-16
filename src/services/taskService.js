@@ -25,3 +25,19 @@ export async function createTask(task) {
 
   return await response.json()
 }
+
+export async function updateTask(id, task) {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(task)
+  })
+
+  if (!response.ok) {
+    throw new Error('Could not update task')
+  }
+
+  return await response.json()
+}

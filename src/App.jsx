@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import TaskForm from "./components/TaskForm/TaskForm";
 import TaskList from "./components/TaskList/TaskList";
-import { createTask, getTasks } from "./services/taskService";
+import { createTask, getTasks, updateTask } from "./services/taskService";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -36,6 +36,25 @@ function App() {
     }
   };
 
+  const handleTaskUpdated = async (id, task) => {
+    try {
+      const updatedTask = await updateTask(id, task);
+      
+      setTasks(currentTasks =>
+        currentTasks.map(currentTask =>
+          currentTask.id === id ? updatedTask : currentTask
+        )
+      )
+      
+      setError(null);
+      return true
+    } catch (error) {
+      console.error(error);
+      setError("Could not update task. Please try again.");
+      return false;
+    }
+  }
+
   return (
     <main>
       <h1>Task Planner</h1>
@@ -44,7 +63,8 @@ function App() {
 
       {error && <p>{error}</p>}
 
-      {loading ? <p>Loading tasks...</p> : <TaskList tasks={tasks} />}
+      {loading ? <p>Loading tasks...</p> :
+        <TaskList tasks={tasks} onTaskUpdated={handleTaskUpdated} />}
     </main>
   );
 }
