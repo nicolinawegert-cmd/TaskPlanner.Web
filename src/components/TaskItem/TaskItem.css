@@ -1,0 +1,27 @@
+.task-item {
+  background-color: white;
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.task-item h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.task-item p {
+  margin: 0.5rem 0;
+}
+
+.task-item a {
+  word-break: break-word;
+}
+
+.edit-button {
+  margin-top: 1rem;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
