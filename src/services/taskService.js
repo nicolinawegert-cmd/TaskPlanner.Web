@@ -46,7 +46,7 @@ export async function uploadTaskFile(id, file) {
   const formData = new FormData();
   formData.append('file', file);
 
-  const response = await fetch(`${API_URL}/${id}/upload`, {
+  const response = await fetch(`${API_URL}/${id}/file`, {
     method: 'POST',
     body: formData
   });

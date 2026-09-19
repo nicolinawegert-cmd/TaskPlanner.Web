@@ -45,7 +45,7 @@ function TaskItem({ task, onTaskUpdated, onFileUpload }) {
         <p>
           <strong>File:</strong>{" "}
           <a
-            href={`http://localhost:5025/uploads/${task.fileName}`}
+            href={`http://localhost:5035/uploads/${task.fileName}`}
             target="_blank"
             rel="noreferrer"
           >
