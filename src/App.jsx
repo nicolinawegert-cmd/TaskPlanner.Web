@@ -31,9 +31,11 @@ function App() {
 
       setTasks((currentTasks) => [...currentTasks, createdTask]);
       setError(null);
+      return true;
     } catch (error) {
       console.error(error);
       setError("Could not create task. Please try again.");
+      return false;
     }
   };
 

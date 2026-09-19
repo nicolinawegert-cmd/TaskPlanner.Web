@@ -17,7 +17,11 @@ function TaskForm({ onTaskCreated }) {
       dueDate: dueDate || null,
     };
 
-    await onTaskCreated(task);
+    const success = await onTaskCreated(task);
+
+    if (!success) {
+      return;
+    }
 
     setTitle("");
     setDescription("");
