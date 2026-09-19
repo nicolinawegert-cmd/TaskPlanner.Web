@@ -4,7 +4,7 @@ import './TaskForm.css';
 function TaskForm({ onTaskCreated }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("NotStarted");
   const [dueDate, setDueDate] = useState("");
 
   const handleSubmit = async (e) => {
