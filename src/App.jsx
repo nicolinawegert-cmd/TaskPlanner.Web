@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import './App.css'
 import TaskForm from "./components/TaskForm/TaskForm";
 import TaskList from "./components/TaskList/TaskList";
-import { createTask, getTasks, updateTask, uploadTaskFile } from "./services/taskService";
+import { createTask, deleteTask, getTasks, updateTask, uploadTaskFile } from "./services/taskService";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -58,6 +58,20 @@ function App() {
     }
   }
 
+  const handleTaskDeleted = async (id) => {
+    try {
+      await deleteTask(id);
+
+      setTasks(currentTasks => currentTasks.filter(task => task.id !== id));
+      setError(null);
+      return true;
+    } catch (error) {
+      console.error(error);
+      setError("Could not delete task. Please try again.");
+      return false;
+    }
+  };
+
   const handleFileUpload = async (id, file) => {
     try {
       const updatedTask = await uploadTaskFile(id, file)
@@ -84,12 +98,13 @@ function App() {
 
       <TaskForm onTaskCreated={handleTaskCreated} />
 
-      {error && <p>{error}</p>}
+      {error && <p role="alert">{error}</p>}
 
       {loading ? <p>Loading tasks...</p> :
         <TaskList
           tasks={tasks}
           onTaskUpdated={handleTaskUpdated}
+          onTaskDeleted={handleTaskDeleted}
           onFileUpload={handleFileUpload}
         />}
     </main>

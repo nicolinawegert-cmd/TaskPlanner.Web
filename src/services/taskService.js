@@ -42,6 +42,16 @@ export async function updateTask(id, task) {
   return await response.json()
 }
 
+export async function deleteTask(id) {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: 'DELETE'
+  });
+
+  if (!response.ok) {
+    throw new Error('Could not delete task');
+  }
+}
+
 export async function uploadTaskFile(id, file) {
   const formData = new FormData();
   formData.append('file', file);

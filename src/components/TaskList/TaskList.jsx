@@ -1,7 +1,7 @@
 import TaskItem from "../TaskItem/TaskItem";
 import './TaskList.css';
 
-function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
+function TaskList({ tasks, onTaskUpdated, onTaskDeleted, onFileUpload }) {
   if (tasks.length === 0) {
     return <p>No tasks found.</p>;
   }
@@ -13,6 +13,7 @@ function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
           key={task.id}
           task={task}
           onTaskUpdated={onTaskUpdated}
+          onTaskDeleted={onTaskDeleted}
           onFileUpload={onFileUpload}
         />
       ))}

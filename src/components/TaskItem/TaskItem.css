@@ -18,10 +18,27 @@
   word-break: break-word;
 }
 
-.edit-button {
+.task-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   margin-top: 1rem;
+}
+
+.edit-button,
+.delete-button {
   padding: 0.6rem 1rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.delete-button {
+  background-color: #b42318;
+  color: white;
+}
+
+.task-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
