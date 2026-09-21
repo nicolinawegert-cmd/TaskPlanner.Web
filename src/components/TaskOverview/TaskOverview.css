@@ -1,0 +1,37 @@
+.task-overview {
+  margin-bottom: 2rem;
+}
+
+.task-overview h2 {
+  margin: 0 0 1rem;
+}
+
+.task-overview-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+}
+
+.task-overview-card {
+  padding: 1.5rem;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.task-overview-card dt {
+  color: #555;
+}
+
+.task-overview-card dd {
+  margin: 0.5rem 0 0;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .task-overview-stats {
+    grid-template-columns: 1fr;
+  }
+}

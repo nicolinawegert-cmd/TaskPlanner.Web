@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import './App.css'
 import TaskForm from "./components/TaskForm/TaskForm";
 import TaskList from "./components/TaskList/TaskList";
+import TaskOverview from "./components/TaskOverview/TaskOverview";
 import { createTask, deleteTask, getTasks, updateTask, uploadTaskFile } from "./services/taskService";
 
 function App() {
@@ -101,12 +102,15 @@ function App() {
       {error && <p role="alert">{error}</p>}
 
       {loading ? <p>Loading tasks...</p> :
-        <TaskList
-          tasks={tasks}
-          onTaskUpdated={handleTaskUpdated}
-          onTaskDeleted={handleTaskDeleted}
-          onFileUpload={handleFileUpload}
-        />}
+        <>
+          <TaskOverview tasks={tasks} />
+          <TaskList
+            tasks={tasks}
+            onTaskUpdated={handleTaskUpdated}
+            onTaskDeleted={handleTaskDeleted}
+            onFileUpload={handleFileUpload}
+          />
+        </>}
     </main>
   );
 }
