@@ -6,6 +6,7 @@ En webbapp för att planera uppgifter, byggd med React och Vite.
 
 - Visa, lägga till och redigera uppgifter.
 - Välja status och slutdatum.
+- Filtrera listan efter status eller visa alla uppgifter.
 - Bifoga en fil och öppna den från uppgiften.
 - Ta bort uppgifter efter en bekräftelse.
 - Visa en översikt med totalt antal uppgifter, pågående och klara.
@@ -63,6 +64,10 @@ så inget extra bibliotek för state behövs.
 
 `TaskOverview` räknar antalen direkt från uppgiftslistan. Antalen sparas inte i
 eget state, så de behöver inte uppdateras separat varje gång listan ändras.
+
+Statusfiltret finns i `TaskList` och bestämmer bara vilka uppgifter som visas.
+Det filtrerar den redan hämtade listan, så inga extra API-anrop behövs.
+Översikten räknar fortfarande alla uppgifter, oavsett vilket filter som är valt.
 
 ### API-anrop och felhantering
 
