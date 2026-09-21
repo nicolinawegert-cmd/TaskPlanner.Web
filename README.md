@@ -8,6 +8,7 @@ En webbapp för att planera uppgifter, byggd med React och Vite.
 - Välja status och slutdatum.
 - Bifoga en fil och öppna den från uppgiften.
 - Ta bort uppgifter efter en bekräftelse.
+- Visa en översikt med totalt antal uppgifter, pågående och klara.
 - Visa ett felmeddelande om ett API-anrop misslyckas.
 
 ## Starta projektet
@@ -37,19 +38,47 @@ Använd adressen med `localhost`, eftersom backend är inställd för den.
 Stoppa frontend med `Ctrl+C`. Nästa gång räcker det att köra
 `npm run dev` i projektmappen.
 
-## Hur koden är uppdelad
+## Hur koden är uppdelad och varför
 
-- `App.jsx` håller reda på uppgifterna och felmeddelandena.
-- `components/` innehåller formulär, lista, uppgiftskort och filuppladdning.
-- `services/taskService.js` innehåller anropen till API:t.
+### Komponenter med egna uppgifter
 
-Komponenterna är uppdelade för att göra koden lättare att hitta i och ändra.
-API-anropen ligger i en egen fil så att samma kod inte behöver skrivas på flera ställen.
-Reacts `useState` används för formulär och uppgiftslistan. Appen är liten nog att
-inte behöva ett extra bibliotek för detta.
+- `TaskList` visar listan och använder `TaskItem` för varje uppgift.
+- `TaskForm` och `TaskEditForm` innehåller formulären för att skapa och redigera.
+- `FileUpload` hanterar valet av fil och uppladdningsknappen.
+- `TaskOverview` visar antalet uppgifter totalt, pågående och klara.
 
-CSS Grid används för uppgiftslistan. Den visar två kolumner på datorskärm och en
-kolumn på skärmar som är högst 600 px breda.
+Komponenterna ligger i `components/`. Uppdelningen gör att varje komponent har
+en tydlig uppgift och blir lättare att läsa och ändra. Till exempel kan
+filuppladdningens utseende ändras utan att formuläret för en ny uppgift behöver ändras.
+
+### En gemensam uppgiftslista
+
+Uppgifterna sparas i state i `App.jsx` eftersom både listan och översikten behöver
+använda dem. De skickas vidare till komponenterna via props. När en uppgift
+ändras uppdateras därför både listan och översikten från samma data.
+
+Formulären använder eget `useState` för det användaren skriver. De anropar
+funktioner från `App.jsx` när något ska sparas. Det räcker för den här appen,
+så inget extra bibliotek för state behövs.
+
+`TaskOverview` räknar antalen direkt från uppgiftslistan. Antalen sparas inte i
+eget state, så de behöver inte uppdateras separat varje gång listan ändras.
+
+### API-anrop och felhantering
+
+Anropen till backend ligger samlade i `services/taskService.js`. Det gör dem
+lättare att hitta och gör att komponenterna kan fokusera på det som visas på sidan.
+
+Uppgiftslistan ändras först när API-anropet har lyckats. Vid fel visar `App.jsx`
+ett felmeddelande. Skapa- och redigeringsformulären behåller inmatningen så att
+användaren kan försöka igen. Om en borttagning misslyckas ligger uppgiften kvar.
+
+### Anpassning till olika skärmar
+
+CSS Grid används för att enkelt kunna ändra antalet kolumner efter skärmens bredd.
+Uppgiftslistan visar två kolumner på datorskärm och översikten visar tre.
+På skärmar som är högst 600 px breda visas båda i en kolumn, så att innehållet
+får plats och blir lättare att läsa på mobilen.
 
 ## Testning
 
